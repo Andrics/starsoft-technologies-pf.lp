@@ -65,6 +65,31 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// Scroll to Top Button Functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    
+    if (scrollToTopBtn) {
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add keyboard support for accessibility
+        scrollToTopBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+});
+
 // Enhanced smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -210,10 +235,19 @@ let ticking = false;
 function updateOnScroll() {
     // Navbar background on scroll with class-based approach
     const navbar = document.querySelector('.navbar');
+    const scrollToTopBtn = document.querySelector('.scroll-to-top');
+    
     if (window.scrollY > 100) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
+    }
+    
+    // Show/hide scroll to top button
+    if (window.scrollY > 300) {
+        scrollToTopBtn.classList.add('visible');
+    } else {
+        scrollToTopBtn.classList.remove('visible');
     }
     
     // Parallax effect for hero section (reduced for mobile performance)
