@@ -7,6 +7,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Critical CSS to prevent flash */
+        .hero-title { opacity: 0 !important; }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -42,9 +46,8 @@
     <section id="home" class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    Transforming Ideas into 
-                    <span class="gradient-text">Digital Solutions</span>
+                <h1 class="hero-title" style="opacity: 0;">
+                    <span class="typing-placeholder"></span>
                 </h1>
                 <p class="hero-subtitle">
                     Since 1994, StarSoft has been delivering cutting-edge software solutions, 

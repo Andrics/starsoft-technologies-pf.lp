@@ -284,9 +284,17 @@ const typeWriter = (element, speed = 40) => {
     let currentPartIndex = 0;
     let currentCharIndex = 0;
     
+    // Ensure element is properly hidden and cleared
+    element.style.opacity = '0';
     element.innerHTML = '';
     element.classList.add('typing-active');
     element.style.borderRight = '2px solid rgba(255, 255, 255, 0.8)';
+    
+    // Force a reflow to ensure styles are applied
+    element.offsetHeight;
+    
+    // Make visible for typing
+    element.style.opacity = '1';
     
     // Create containers for each part
     const normalSpan = document.createElement('span');
@@ -327,18 +335,35 @@ const typeWriter = (element, speed = 40) => {
     type();
 };
 
-// Initialize typing effect on page load
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize typing effect - multiple event listeners for robustness
+const initTypingEffect = () => {
     const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        // Hide text initially and start typing animation
+    if (heroTitle && !heroTitle.classList.contains('typing-initialized')) {
+        heroTitle.classList.add('typing-initialized');
+        
+        // Ensure text is hidden immediately
+        heroTitle.style.opacity = '0';
         heroTitle.innerHTML = '';
         
         setTimeout(() => {
             typeWriter(heroTitle, 35);
         }, 600);
     }
+};
+
+// Multiple initialization points for different loading scenarios
+document.addEventListener('DOMContentLoaded', initTypingEffect);
+window.addEventListener('load', () => {
+    // Fallback in case DOMContentLoaded already fired
+    setTimeout(initTypingEffect, 100);
 });
+
+// Immediate execution for cases where scripts load after DOM
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTypingEffect);
+} else if (document.readyState === 'interactive' || document.readyState === 'complete') {
+    setTimeout(initTypingEffect, 100);
+}
 
 // Enhanced hover effects for service cards
 document.addEventListener('DOMContentLoaded', () => {
