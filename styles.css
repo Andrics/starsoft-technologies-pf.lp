@@ -87,10 +87,6 @@ body {
     width: 100%;
 }
 
-/* Hide mobile header on desktop */
-.nav-header {
-    display: none;
-}
 
 .hamburger {
     display: none;
@@ -789,13 +785,11 @@ body {
         animation: slideInNav 0.3s ease forwards;
     }
     
-    .nav-menu.active li:nth-child(1) { animation-delay: 0.05s; }
-    .nav-menu.active li:nth-child(2) { animation-delay: 0.1s; }
-    .nav-menu.active li:nth-child(3) { animation-delay: 0.15s; }
-    .nav-menu.active li:nth-child(4) { animation-delay: 0.2s; }
-    .nav-menu.active li:nth-child(5) { animation-delay: 0.25s; }
-    .nav-menu.active li:nth-child(6) { animation-delay: 0.3s; }
-    .nav-menu.active li:nth-child(7) { animation-delay: 0.35s; }
+    .nav-menu.active li:nth-child(1) { animation-delay: 0.1s; }
+    .nav-menu.active li:nth-child(2) { animation-delay: 0.15s; }
+    .nav-menu.active li:nth-child(3) { animation-delay: 0.2s; }
+    .nav-menu.active li:nth-child(4) { animation-delay: 0.25s; }
+    .nav-menu.active li:nth-child(5) { animation-delay: 0.3s; }
     
     .nav-menu a {
         font-size: 1.1rem;
@@ -841,36 +835,6 @@ body {
         border-bottom: none;
     }
     
-    /* Mobile menu header - only visible on mobile */
-    .nav-header {
-        display: block;
-        padding: 0 !important;
-        margin-bottom: 1rem;
-        border-bottom: 2px solid rgba(102, 126, 234, 0.1) !important;
-    }
-    
-    .nav-company-info {
-        padding: 1.5rem 2rem 2rem;
-        text-align: left;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
-    }
-    
-    .nav-company-info h3 {
-        font-size: 1.2rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    
-    .nav-company-info p {
-        font-size: 0.9rem;
-        color: #666;
-        margin: 0;
-        font-weight: 400;
-    }
     
     /* Mobile menu overlay */
     .nav-overlay {
