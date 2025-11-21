@@ -1,44 +1,67 @@
 // Enhanced Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
+const navOverlay = document.querySelector('.nav-overlay');
 const body = document.body;
 
-hamburger.addEventListener('click', () => {
+function toggleMobileMenu() {
+    const isActive = navMenu.classList.contains('active');
+    
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
+    navOverlay.classList.toggle('active');
     
     // Prevent body scroll when menu is open
-    if (navMenu.classList.contains('active')) {
+    if (!isActive) {
         body.style.overflow = 'hidden';
+        // Add slight delay to menu items animation
+        setTimeout(() => {
+            navMenu.classList.add('animate-items');
+        }, 100);
     } else {
         body.style.overflow = '';
+        navMenu.classList.remove('animate-items');
     }
-});
+}
+
+function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    navMenu.classList.remove('active');
+    navOverlay.classList.remove('active');
+    body.style.overflow = '';
+    navMenu.classList.remove('animate-items');
+}
+
+hamburger.addEventListener('click', toggleMobileMenu);
 
 // Close mobile menu when clicking on a link
 document.querySelectorAll('.nav-menu a').forEach(link => {
     link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        body.style.overflow = '';
+        closeMobileMenu();
     });
 });
 
-// Close mobile menu when clicking outside
+// Close mobile menu when clicking on overlay
+navOverlay.addEventListener('click', closeMobileMenu);
+
+// Close mobile menu when clicking outside (but not on hamburger)
 document.addEventListener('click', (e) => {
-    if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        body.style.overflow = '';
+    if (!hamburger.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('active')) {
+        closeMobileMenu();
     }
 });
 
 // Close mobile menu on window resize
 window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-        body.style.overflow = '';
+        closeMobileMenu();
+    }
+});
+
+// Add keyboard navigation support
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+        closeMobileMenu();
     }
 });
 
@@ -185,14 +208,12 @@ window.addEventListener('load', () => {
 let ticking = false;
 
 function updateOnScroll() {
-    // Navbar background on scroll
+    // Navbar background on scroll with class-based approach
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 100) {
-        navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        navbar.classList.add('scrolled');
     } else {
-        navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-        navbar.style.boxShadow = 'none';
+        navbar.classList.remove('scrolled');
     }
     
     // Parallax effect for hero section (reduced for mobile performance)
