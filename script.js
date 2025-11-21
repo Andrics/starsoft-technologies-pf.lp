@@ -275,10 +275,11 @@ window.addEventListener('scroll', requestTick);
 
 // Enhanced typing effect for hero title with HTML support
 const typeWriter = (element, speed = 40) => {
-    // Define the text parts with their styling
+    // Define the text parts with proper line breaks
     const textParts = [
-        { text: 'Transforming Ideas into ', isGradient: false },
-        { text: 'Digital Solutions', isGradient: true }
+        { text: 'Transforming Ideas', isGradient: false, isFirstLine: true },
+        { text: 'into ', isGradient: false, isFirstLine: false },
+        { text: 'Digital Solutions', isGradient: true, isFirstLine: false }
     ];
     
     let currentPartIndex = 0;
@@ -296,18 +297,39 @@ const typeWriter = (element, speed = 40) => {
     // Make visible for typing
     element.style.opacity = '1';
     
-    // Create containers for each part
-    const normalSpan = document.createElement('span');
-    const gradientSpan = document.createElement('span');
-    gradientSpan.className = 'gradient-text';
+    // Create a container div to control layout
+    const textContainer = document.createElement('div');
+    textContainer.style.display = 'block';
+    element.appendChild(textContainer);
     
-    element.appendChild(normalSpan);
-    element.appendChild(gradientSpan);
+    // Create line containers
+    const firstLine = document.createElement('div');
+    const secondLine = document.createElement('div');
+    
+    textContainer.appendChild(firstLine);
+    textContainer.appendChild(secondLine);
     
     const type = () => {
         if (currentPartIndex < textParts.length) {
             const currentPart = textParts[currentPartIndex];
-            const targetElement = currentPart.isGradient ? gradientSpan : normalSpan;
+            let targetElement;
+            
+            if (currentPart.isFirstLine) {
+                targetElement = firstLine;
+            } else {
+                if (currentPart.isGradient) {
+                    // Create a separate span for gradient text within the second line
+                    if (!secondLine.querySelector('.gradient-text')) {
+                        const gradientSpan = document.createElement('span');
+                        gradientSpan.className = 'gradient-text';
+                        secondLine.appendChild(gradientSpan);
+                    }
+                    targetElement = secondLine.querySelector('.gradient-text');
+                } else {
+                    // Regular text goes directly in the second line
+                    targetElement = secondLine;
+                }
+            }
             
             if (currentCharIndex < currentPart.text.length) {
                 const char = currentPart.text.charAt(currentCharIndex);
@@ -321,8 +343,9 @@ const typeWriter = (element, speed = 40) => {
                 // Move to next part
                 currentPartIndex++;
                 currentCharIndex = 0;
-                // Small pause between parts
-                setTimeout(type, speed * 2);
+                // Small pause between parts, longer pause between lines
+                const pauseTime = (currentPart.isFirstLine) ? speed * 4 : speed * 1.5;
+                setTimeout(type, pauseTime);
             }
         } else {
             // Remove cursor after typing is complete
