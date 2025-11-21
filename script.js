@@ -273,17 +273,49 @@ function requestTick() {
 
 window.addEventListener('scroll', requestTick);
 
-// Enhanced typing effect for hero title
-const typeWriter = (element, text, speed = 80) => {
-    let i = 0;
+// Enhanced typing effect for hero title with HTML support
+const typeWriter = (element, speed = 40) => {
+    // Define the text parts with their styling
+    const textParts = [
+        { text: 'Transforming Ideas into ', isGradient: false },
+        { text: 'Digital Solutions', isGradient: true }
+    ];
+    
+    let currentPartIndex = 0;
+    let currentCharIndex = 0;
+    
     element.innerHTML = '';
+    element.classList.add('typing-active');
     element.style.borderRight = '2px solid rgba(255, 255, 255, 0.8)';
     
+    // Create containers for each part
+    const normalSpan = document.createElement('span');
+    const gradientSpan = document.createElement('span');
+    gradientSpan.className = 'gradient-text';
+    
+    element.appendChild(normalSpan);
+    element.appendChild(gradientSpan);
+    
     const type = () => {
-        if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
+        if (currentPartIndex < textParts.length) {
+            const currentPart = textParts[currentPartIndex];
+            const targetElement = currentPart.isGradient ? gradientSpan : normalSpan;
+            
+            if (currentCharIndex < currentPart.text.length) {
+                const char = currentPart.text.charAt(currentCharIndex);
+                targetElement.innerHTML += char;
+                currentCharIndex++;
+                
+                // Adjust speed for spaces and punctuation
+                const currentSpeed = (char === ' ') ? speed * 0.4 : speed;
+                setTimeout(type, currentSpeed);
+            } else {
+                // Move to next part
+                currentPartIndex++;
+                currentCharIndex = 0;
+                // Small pause between parts
+                setTimeout(type, speed * 2);
+            }
         } else {
             // Remove cursor after typing is complete
             setTimeout(() => {
@@ -299,12 +331,12 @@ const typeWriter = (element, text, speed = 80) => {
 document.addEventListener('DOMContentLoaded', () => {
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle) {
-        const originalText = heroTitle.textContent;
-        // Disable CSS animation for typing effect
-        heroTitle.style.animation = 'none';
+        // Hide text initially and start typing animation
+        heroTitle.innerHTML = '';
+        
         setTimeout(() => {
-            typeWriter(heroTitle, originalText, 60);
-        }, 800);
+            typeWriter(heroTitle, 35);
+        }, 600);
     }
 });
 

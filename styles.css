@@ -142,7 +142,13 @@ body {
     color: white;
     margin-bottom: 1.5rem;
     line-height: 1.2;
+    opacity: 0;
     animation: slideInUp 1s ease-out 0.5s both;
+}
+
+.hero-title.typing-active {
+    opacity: 1;
+    animation: none;
 }
 
 .gradient-text {
