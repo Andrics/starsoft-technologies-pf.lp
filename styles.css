@@ -702,6 +702,27 @@ body {
     border-color: #667eea;
 }
 
+.form-status {
+    min-height: 1.2rem;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #667eea;
+    transition: color 0.2s ease;
+}
+
+.form-status.sending {
+    color: #667eea;
+}
+
+.form-status.success {
+    color: #2ecc71;
+}
+
+.form-status.error {
+    color: #e74c3c;
+}
+
 /* Footer */
 .footer {
     background: #2c3e50;

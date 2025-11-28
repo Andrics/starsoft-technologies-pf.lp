@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StarSoft Technologies - Leading Software Development Company</title>
+    <title>CDS (Code Device Solutions) - Leading Software Development Company</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
@@ -17,7 +17,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>StarSoft Technologies</h2>
+                <h2>Code Device Solutions</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
@@ -50,7 +50,7 @@
                     <span class="typing-placeholder"></span>
                 </h1>
                 <p class="hero-subtitle">
-                    Since 1994, StarSoft has been delivering cutting-edge software solutions, 
+                    Since 1994, CDS has been delivering cutting-edge software solutions, 
                     from database development to comprehensive IT consulting services.
                 </p>
                 <div class="hero-buttons">
@@ -72,14 +72,14 @@
     <section id="about" class="about">
         <div class="container">
             <div class="section-header">
-                <h2>About StarSoft</h2>
+                <h2>About CDS</h2>
                 <p>Your trusted partner in digital transformation</p>
             </div>
             <div class="about-grid">
                 <div class="about-content">
                     <h3>Our Mission</h3>
                     <p>
-                        StarSoft is a medium-size software development company, formed in November 1994 
+                        Code Device Solutions (CDS) is a medium-size software development company, formed in November 1994 
                         with a mission to serve our valued customers in the best possible way with all 
                         the resources available.
                     </p>
@@ -314,7 +314,7 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h4>Email</h4>
-                            <p>starsoft@super.net.pk</p>
+                            <p>cds@super.net.pk</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -326,20 +326,21 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form>
+                    <form id="contactForm" action="contact.php" method="POST" novalidate>
                         <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                            <input type="text" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
+                            <input type="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Subject" required>
+                            <input type="text" name="subject" placeholder="Subject" required>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                            <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Send Message</button>
+                        <p class="form-status" aria-live="polite"></p>
                     </form>
                 </div>
             </div>
@@ -351,7 +352,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>StarSoft Technologies</h3>
+                    <h3>Code Device Solutions</h3>
                     <p>Transforming businesses through innovative software solutions since 1994.</p>
                 </div>
                 <div class="footer-section">
@@ -374,7 +375,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 StarSoft Technologies. All rights reserved.</p>
+                <p>&copy; 2025 Code Device Solutions (CDS). All rights reserved.</p>
             </div>
         </div>
     </footer>

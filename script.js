@@ -182,34 +182,57 @@ if (statsSection) {
 }
 
 // Form submission handling
-const contactForm = document.querySelector('.contact-form form');
+const contactForm = document.querySelector('#contactForm');
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    const statusMessage = contactForm.querySelector('.form-status');
+    
+    const updateStatus = (message, state = 'info') => {
+        if (!statusMessage) return;
+        statusMessage.textContent = message;
+        statusMessage.className = `form-status ${state}`;
+    };
+    
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Get form data
         const formData = new FormData(contactForm);
-        const name = contactForm.querySelector('input[type="text"]').value;
-        const email = contactForm.querySelector('input[type="email"]').value;
-        const subject = contactForm.querySelectorAll('input[type="text"]')[1].value;
-        const message = contactForm.querySelector('textarea').value;
+        const name = formData.get('name')?.trim();
+        const email = formData.get('email')?.trim();
+        const subject = formData.get('subject')?.trim();
+        const message = formData.get('message')?.trim();
         
         // Simple validation
         if (!name || !email || !subject || !message) {
-            alert('Please fill in all fields.');
+            updateStatus('Please fill in all fields.', 'error');
             return;
         }
         
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Please enter a valid email address.');
+            updateStatus('Please enter a valid email address.', 'error');
             return;
         }
         
-        // Show success message (in a real application, you would send this to a server)
-        alert('Thank you for your message! We will get back to you soon.');
-        contactForm.reset();
+        updateStatus('Sending your message...', 'sending');
+        
+        try {
+            const response = await fetch(contactForm.action, {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok && result.success) {
+                updateStatus(result.message || 'Thank you! Your message has been sent.', 'success');
+                contactForm.reset();
+            } else {
+                throw new Error(result.message || 'Unable to send your message. Please try again later.');
+            }
+        } catch (error) {
+            updateStatus(error.message || 'Something went wrong. Please try again.', 'error');
+        }
     });
 }
 
